@@ -20,6 +20,36 @@ const TabNavigator = createBottomTabNavigator({
   Transaction:{screen:BookTransactionScreen},
   Search:{screen:SearchScreen}
 
+},{
+  
+  defaultNavigationOptions:({navigation})=>({
+
+    tabBarIcon:({})=>{
+
+      const routeName = navigation.state.routeName;
+
+      if(routeName === 'Transaction'){
+
+        return(
+
+          <Image source={require('.assets/book.png')} style={{width:40,height:40}}></Image>
+
+        )
+
+      }else if(routeName === 'Search'){
+
+        return(
+
+          <Image source={require('.assets/searchingbook.png')} style={{width:40,height:40}}></Image>
+
+        )
+
+      }
+
+    }
+
+  })
+
 })
 const AppContainer = createAppContainer(
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View  } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions'
 export default class BookTransactionScreen extends React.Component {
@@ -41,7 +41,8 @@ export default class BookTransactionScreen extends React.Component {
 
             return(
 
-                <BarCodeScanner onBarCodeScanned = {scanned?undefined:this.handleBarcodeScan}></BarCodeScanner>
+                <BarCodeScanner onBarCodeScanned = {scanned?undefined:this.handleBarcodeScan}style={StyleSheet.absoluteFillObject}
+                ></BarCodeScanner>
 
             )
 
