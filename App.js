@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import SearchScreen from './screens/SearchScreen';
 import BookTransactionScreen from './screens/BookTransactionScreen';
 import { createAppContainer } from 'react-navigation';
@@ -32,7 +32,7 @@ const TabNavigator = createBottomTabNavigator({
 
         return(
 
-          <Image source={require('.assets/book.png')} style={{width:40,height:40}}></Image>
+          <Image source={require('./assets/book.png')} style={{width:40,height:40}}></Image>
 
         )
 
@@ -40,7 +40,7 @@ const TabNavigator = createBottomTabNavigator({
 
         return(
 
-          <Image source={require('.assets/searchingbook.png')} style={{width:40,height:40}}></Image>
+          <Image source={require('./assets/searchingbook.png')} style={{width:40,height:40}}></Image>
 
         )
 

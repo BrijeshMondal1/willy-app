@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions'
+import { TextInput } from 'react-native-gesture-handler';
 export default class BookTransactionScreen extends React.Component {
 
     constructor(){
@@ -51,11 +52,24 @@ export default class BookTransactionScreen extends React.Component {
             return (
 
                 <View style = {styles.container}>
-        
-                    <Text style={styles.displayText}>{hasCameraPermissions===true?this.state.scannedData:"Enable the camera permission"}</Text>
-                    <TouchableOpacity style={styles.scanButton} onPress={this.getCameraPermissions}>
-                        <Text style={styles.buttonText}>Scan QR Code</Text>
-                    </TouchableOpacity>
+
+                    <View style={styles.inputView}>
+
+                        <TextInput style={styles.inputBox}placeholder="Book ID"></TextInput>
+                           
+                            <TouchableOpacity style={styles.scanButton} 
+                            onPress={()=>{this.getCameraPermissions("BookID")}}>
+                                <Text style={styles.buttonText}>Scan</Text>
+                            </TouchableOpacity>
+
+                            <Text style={styles.displayText}>{hasCameraPermissions===true?this.state.scannedData:"Enable the camera permission"}</Text>
+                            
+                            <TouchableOpacity style={styles.scanButton} 
+                             onPress={()=>{this.getCameraPermissions("StudentID")}}>
+                                <Text style={styles.buttonText}>Scan</Text>
+                            </TouchableOpacity>
+                    
+                    </View>
         
                 </View>
         
