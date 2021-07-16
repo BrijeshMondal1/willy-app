@@ -71,7 +71,7 @@ export default class BookTransactionScreen extends React.Component {
 
                 <View style = {styles.container}>
                     <View>
-                        <Image source={require('./assets/booklogo.jpg')} style={{width:200,height:200}}></Image>
+                        <Image source={require("../assets/booklogo.jpg")} style={{width:200,height:200}}></Image>
                         <Text style={{textAlign:'center',fontSize:30}}>Willy</Text>
                     </View>
                     <View style={styles.inputView}>
