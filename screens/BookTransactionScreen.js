@@ -50,7 +50,11 @@ export default class BookTransactionScreen extends React.Component {
             }
 
     }
+        handleTransaction=async()=>{
 
+            
+
+        }
     render(){
 
         const hasCameraPermissions = this.state.hasCameraPermissions;
@@ -95,6 +99,11 @@ export default class BookTransactionScreen extends React.Component {
 
                      </View>
                     
+                    <TouchableOpacity style={styles.submitButton} onPress={async()=>{this.handleTransaction()}}>
+
+                        <Text style={styles.submitButtonText}>Submit</Text>
+
+                    </TouchableOpacity>
         
                 </View>
         
@@ -114,6 +123,8 @@ const styles = StyleSheet.create({
     buttonText:{fontSize:15,textAlign:'center'},
     inputView:{flexDirection:'row',margin:20},
     inputBox:{width:200,height:30,borderWidth:1.5,fontSize:15},
-    scanButton:{backgroundColor:'cyan',width:50,borderWidth:1.5}
+    scanButton:{backgroundColor:'cyan',width:50,borderWidth:1.5},
+    submitButton:{backgroundColor:'red',width:50,height:50},
+    submitButtonText:{fontSize:20,fontWeight:"bold",color:"white",textAlign:'center'}
 
 })
