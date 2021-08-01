@@ -3,6 +3,9 @@ import { Text, TouchableOpacity, View, StyleSheet, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions'
 import { TextInput } from 'react-native-gesture-handler';
+import * as firebase from 'firebase';
+import db from '../config.js';
+
 export default class BookTransactionScreen extends React.Component {
 
     constructor(){
@@ -52,7 +55,13 @@ export default class BookTransactionScreen extends React.Component {
     }
         handleTransaction=async()=>{
 
-            
+            var transactionMessage 
+            db.collection("Books").doc(this.state.scannedBookID).get()
+            .then((doc)=>{
+
+                console.log(doc.data());
+
+            })
 
         }
     render(){
