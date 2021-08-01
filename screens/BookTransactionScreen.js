@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, StyleSheet, Image } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet, Image, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions'
 import { TextInput } from 'react-native-gesture-handler';
@@ -60,10 +60,54 @@ export default class BookTransactionScreen extends React.Component {
             .then((doc)=>{
 
                 console.log(doc.data());
+                var book=doc.data()
+                if(book.bookAvailability){
+                    this.initiateBookIssue()
+                    transactionMessage="book issued"
+                }else{
+                    this.initiateBookReturn()
+                    transactionMessage="book return"
+                }
 
             })
 
+            this.setState({
+                transactionMessage:transactionMessage
+            })
+
         }
+
+        initiateBookIssue=async()=>{
+
+            db.collection("Transactions").add({
+
+                'StudentID':this.state.scannedStudentID,
+                'BookID':this.state.scannedBookID,
+                'Date':firebase.firestore.Timestamp.now().toDate(),
+                'TransactionType':"Issue"
+
+            })
+
+            db.collection("Books").doc(this.state.scannedBookID).update({
+
+                'bookAvailability':false
+
+            })
+
+            db.collection("Students").doc(this.state.scannedStudentID).update({
+
+
+                'numberOfBooksIssued':firebase.firestore.FieldValue.increment(1)
+
+            })
+
+            Alert.alert("bookIssued")
+            this.setState({
+                scannedBookID:'',scannedStudentID:''
+            })
+
+        }
+
     render(){
 
         const hasCameraPermissions = this.state.hasCameraPermissions;
