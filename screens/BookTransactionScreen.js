@@ -15,7 +15,7 @@ export default class BookTransactionScreen extends React.Component {
             hasCameraPermissions:null,
             scanned:false,
             scannedBookID:'',
-            scannedStudentID:'',
+            scannedstudentID:'',
             buttonState:"normal"
         }
 
@@ -38,13 +38,13 @@ export default class BookTransactionScreen extends React.Component {
 
         const {buttonState}=this.state
 
-        if(buttonState === "BookID"){
+        if(buttonState === "bookID"){
 
             this.setState({scanned:true,
                 scannedBookID:data,
                 buttonState:"normal"})
 
-        }else if(buttonState === "StudentID"){
+        }else if(buttonState === "studentID"){
 
             this.setState({scanned:true,
                 scannedStudentID:data,
@@ -81,10 +81,10 @@ export default class BookTransactionScreen extends React.Component {
 
             db.collection("Transactions").add({
 
-                'StudentID':this.state.scannedStudentID,
-                'BookID':this.state.scannedBookID,
-                'Date':firebase.firestore.Timestamp.now().toDate(),
-                'TransactionType':"Issue"
+                'studentID':this.state.scannedStudentID,
+                'bookID':this.state.scannedBookID,
+                'date':firebase.firestore.Timestamp.now().toDate(),
+                'transactionType':"Issue"
 
             })
 
@@ -102,6 +102,37 @@ export default class BookTransactionScreen extends React.Component {
             })
 
             Alert.alert("bookIssued")
+            this.setState({
+                scannedBookID:'',scannedStudentID:''
+            })
+
+        }
+
+        initiateBookReturn=async()=>{
+
+            db.collection("Transactions").add({
+
+                'studentID':this.state.scannedStudentID,
+                'bookID':this.state.scannedBookID,
+                'date':firebase.firestore.Timestamp.now().toDate(),
+                'transactionType':"Issue"
+
+            })
+
+            db.collection("Books").doc(this.state.scannedBookID).update({
+
+                'bookAvailability':true
+
+            })
+
+            db.collection("Students").doc(this.state.scannedStudentID).update({
+
+
+                'numberOfBooksIssued':firebase.firestore.FieldValue.increment(-1)
+
+            })
+
+            Alert.alert("bookReturned")
             this.setState({
                 scannedBookID:'',scannedStudentID:''
             })
@@ -136,7 +167,7 @@ export default class BookTransactionScreen extends React.Component {
                         <TextInput style={styles.inputBox}placeholder="Book ID" value={this.state.scannedBookID}></TextInput>
                            
                             <TouchableOpacity style={styles.scanButton} 
-                            onPress={()=>{this.getCameraPermissions("BookID")}}>
+                            onPress={()=>{this.getCameraPermissions("bookID")}}>
                                 <Text style={styles.buttonText}>Scan</Text>
                             </TouchableOpacity>
                     </View>
@@ -146,7 +177,7 @@ export default class BookTransactionScreen extends React.Component {
                             <TextInput style={styles.inputBox}placeholder="Student ID" value={this.state.scannedStudentID}></TextInput>
                             
                             <TouchableOpacity style={styles.scanButton} 
-                             onPress={()=>{this.getCameraPermissions("StudentID")}}>
+                             onPress={()=>{this.getCameraPermissions("studentID")}}>
                                 <Text style={styles.buttonText}>Scan</Text>
                             </TouchableOpacity>
 
