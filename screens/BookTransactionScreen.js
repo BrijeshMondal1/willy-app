@@ -82,26 +82,6 @@ export default class BookTransactionScreen extends React.Component {
                 }
 
             }
-            // db.collection("Books").doc(this.state.scannedBookID).get()
-            // .then((doc)=>{
-
-            //     console.log(doc.data());
-            //     var book=doc.data()
-            //     if(book.bookAvailability){
-            //         this.initiateBookIssue()
-            //         transactionMessage="book issued"
-            //         ToastAndroid.show(transactionMessage,ToastAndroid.SHORT)
-            //     }else{
-            //         this.initiateBookReturn()
-            //         transactionMessage="book return"
-            //         ToastAndroid.show(transactionMessage,ToastAndroid.SHORT)
-            //     }
-
-            // })
-
-            // this.setState({
-            //     transactionMessage:transactionMessage
-            // })
 
         }
 
@@ -158,6 +138,33 @@ export default class BookTransactionScreen extends React.Component {
             return isStudentEligible
 
         }
+
+        checkBookEligibility=async()=>{
+
+            const bookRef=await db.collection("Books").where("bookID","==",this.state.scannedBookID).get()
+            var transactionType=""
+            if(bookRef.docs.length==0){
+
+                transactionType=false
+                console.log(bookRef.docs.length)
+
+            }else{
+
+                bookRef.docs.map((doc)=>{
+
+                    var book=doc.data()
+                    if(book.bookAvailability){
+                        transactionType="issue"
+                    }else{
+                        transactionType="return"
+                    }
+
+                })
+
+            }
+            return transactionType
+        }
+
 
         initiateBookIssue=async()=>{
 
