@@ -154,9 +154,9 @@ export default class BookTransactionScreen extends React.Component {
 
                     var book=doc.data()
                     if(book.bookAvailability){
-                        transactionType="issue"
+                        transactionType="Issue"
                     }else{
-                        transactionType="return"
+                        transactionType="Return"
                     }
 
                 })
@@ -204,7 +204,7 @@ export default class BookTransactionScreen extends React.Component {
                 'studentID':this.state.scannedStudentID,
                 'bookID':this.state.scannedBookID,
                 'date':firebase.firestore.Timestamp.now().toDate(),
-                'transactionType':"Issue"
+                'transactionType':"Return"
 
             })
 
