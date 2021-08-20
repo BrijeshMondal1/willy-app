@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View  } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 import db from '../config'
 
 export default class SearchScreen extends React.Component {
@@ -31,25 +31,30 @@ render(){
 
     return (
 
-        <ScrollView>
-            {this.state.allTransactions.map((Transaction,index)=>{
+        <FlatList
+            data={this.state.allTransactions}
+            renderItem={({item})=>(
 
-                return(
-
-                    <View key={index} style={{borderBottomWidth:2}}>
-                        <Text>{"BookID"+Transaction.bookID}</Text>
-                        <Text>{"StudentID"+Transaction.studentID}</Text>
-                        <Text>{"TransactionType"+Transaction.transactionType}</Text>
-                        <Text>{"Date"+Transaction.date.toDate()}</Text>
+                    <View style={{borderBottomWidth:2}}>
+                        <Text>{"BookID"+item.bookID}</Text>
+                        <Text>{"StudentID"+item.studentID}</Text>
+                        <Text>{"TransactionType"+item.transactionType}</Text>
+                        <Text>{"Date"+item.date.toDate()}</Text>
                     </View>
 
-                )
-
-            })}
-        </ScrollView>
-
+            )
+        
+        }
+        
+                keyExtractor={(item,index)=>index.toString()}
+            
+            >
+            
+        </FlatList>
+         
     )
 
 }
+
 
 }
