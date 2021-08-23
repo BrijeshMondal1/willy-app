@@ -278,7 +278,7 @@ export default class BookTransactionScreen extends React.Component {
                     onPress={async()=>{this.handleTransaction()
                     this.setState({scannedBookID:'',scannedStudentID:''})}}>
 
-                        <Text style={styles.submitButtonText}>Submit</Text>
+                        <Text style={styles.submitButtonText}>SUBMIT</Text>
 
                     </TouchableOpacity>
         
